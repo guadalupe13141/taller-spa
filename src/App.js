@@ -1,25 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import Pokemon from "./components/Pokemon.jsx";
+import React,{useState} from "react";
+import styles from "./components/Pokemon.module.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App(){
+
+  const[name, setName] = useState('Pikachu');
+
+  return(
+  <div>
+    <Pokemon name={name}/>
+    <button className={`${styles.blue}`} onClick={()=> setName("Sylveon")}>
+    Modificar
+    </button>
+  </div>
+  )
 }
 
 export default App;
