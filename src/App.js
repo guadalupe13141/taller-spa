@@ -1,21 +1,30 @@
 import Pokemon from "./components/Pokemon";
-import { Container, Row, Col, Form } from "react-bootstrap";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import ShowModal from "./components/CreateModal";
 
 function App() {
   const [allPokemon, setAllPokemon] = useState([]);
   const [backUpPokemon, setBackUpPokemon] = useState([]);
 
+  const fetchPokemons = async () => {
+    const response = await axios.get(
+      "https://hidden-plains-73441.herokuapp.com/api/v1/pokemons"
+    );
+    setAllPokemon(response.data);
+    setBackUpPokemon(response.data);
+  };
+
   useEffect(() => {
     try {
       let fetchPokemon = async function () {
         const response = await axios.get(
-          "https://pokeapi.co/api/v2/pokemon",
+          "https://hidden-plains-73441.herokuapp.com/api/v1/pokemons",
         );
-        setAllPokemon(response.data.results);
-        setBackUpPokemon(response.data.results);
+        setAllPokemon(response.data);
+        setBackUpPokemon(response.data);
       };
       fetchPokemon();
     } catch (err) {
@@ -47,14 +56,23 @@ function App() {
             placeholder="Ingresa el nombre del Pokemon"
             onChange={buscarPokemon}
           />
-        </Col>
-      </Row>
-    </Form>
+         </Col>
+          <Col xs={2}>
+            <ShowModal fetchPokemons={fetchPokemons} />
+          </Col>
+        </Row>
+      </Form>
       <Row>
         <Col>
           <div className="target m-5">
             {allPokemon.map((pokemon) => {
-              return <Pokemon key={pokemon.name} pokemon={pokemon} />;
+              return (
+                <Pokemon
+                  key={pokemon.id}
+                  pokemon={pokemon}
+                  fetchPokemons={fetchPokemons}
+                />
+              );
             })}
           </div>
         </Col>
