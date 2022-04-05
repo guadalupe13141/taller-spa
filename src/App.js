@@ -1,43 +1,33 @@
 import Pokemon from "./components/Pokemon";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
+import ShowModal from "./components/Modal";
 import "./App.css";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import ShowModal from "./components/CreateModal";
+import { useState, useEffect, useCallback } from "react";
+import axios from "./utils/axios";
 
 function App() {
   const [allPokemon, setAllPokemon] = useState([]);
   const [backUpPokemon, setBackUpPokemon] = useState([]);
 
-  const fetchPokemons = async () => {
-    const response = await axios.get(
-      "https://hidden-plains-73441.herokuapp.com/api/v1/pokemons"
-    );
+  const fetchPokemons = useCallback(async () => {
+    const response = await axios.get("https://pokemons-data.herokuapp.com/api/v1/pokemons");
     setAllPokemon(response.data);
     setBackUpPokemon(response.data);
-  };
+  }, []);
 
   useEffect(() => {
     try {
-      let fetchPokemon = async function () {
-        const response = await axios.get(
-          "https://hidden-plains-73441.herokuapp.com/api/v1/pokemons",
-        );
-        setAllPokemon(response.data);
-        setBackUpPokemon(response.data);
-      };
-      fetchPokemon();
+      fetchPokemons();
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [fetchPokemons]);
 
   const buscarPokemon = function (event) {
     let pokeArray = [...backUpPokemon];
     pokeArray = pokeArray.filter((pokemon) => {
-      let pokename = `${pokemon.name}`;
       return (
-        pokename.toLowerCase().search(event.target.value.toLowerCase()) !== -1
+        pokemon.name.toLowerCase().search(event.target.value.toLowerCase()) !== -1
       );
     });
     setAllPokemon(pokeArray);
@@ -58,7 +48,7 @@ function App() {
           />
          </Col>
           <Col xs={2}>
-            <ShowModal fetchPokemons={fetchPokemons} />
+          <ShowModal type={"create"} fetchPokemons={fetchPokemons} />
           </Col>
         </Row>
       </Form>
@@ -66,13 +56,15 @@ function App() {
         <Col>
           <div className="target m-5">
             {allPokemon.map((pokemon) => {
-              return (
-                <Pokemon
-                  key={pokemon.id}
-                  pokemon={pokemon}
-                  fetchPokemons={fetchPokemons}
-                />
-              );
+               return (
+                <Col>
+                  <Pokemon
+                    key={pokemon.id}
+                    pokemon={pokemon}
+                    fetchPokemons={fetchPokemons}
+                  />
+                </Col>
+               );
             })}
           </div>
         </Col>

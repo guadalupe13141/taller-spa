@@ -1,27 +1,38 @@
 import { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-import axios from "axios";
+import axios from "../../utils/axios";
 
-function ShowModal(props) {
+function ShowModal({ fetchPokemons, type, pokemon }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    base_experience: "",
-    height: "",
-    weight: "",
-  });
+  let initialData = {};
+  if (pokemon) {
+    initialData = { ...pokemon };
+    delete initialData.id;
+  } else {
+    initialData = {
+      name: "",
+      base_experience: "",
+      height: "",
+      weight: "",
+      sprite: "",
+    };
+  }
+  
+  const [formData, setFormData] = useState(initialData);
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      await axios.post(
-        "https://hidden-plains-73441.herokuapp.com/api/v1/pokemons",
-        formData
-      );
-      props.fetchPokemons();
+      if (type === "create") {
+        await axios.post("/pokemons", formData);
+        setFormData(initialData);
+      } else {
+        await axios.put(`/pokemons/${pokemon.id}`, formData);
+      }
+      fetchPokemons();
       handleClose();
       alert("Se ha agregado el pokemon exitosamente!");
     } catch (err) {
@@ -36,12 +47,14 @@ function ShowModal(props) {
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
-        Agregar
+        {type === "create" ? "Agregar" : "Actualizar"}
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear nuevo Pokemon</Modal.Title>
+          <Modal.Title>
+            {type === "create" ? "Crear nuevo Pokemon" : "Actualizar Pokemon"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
@@ -60,7 +73,7 @@ function ShowModal(props) {
               <Form.Label>Experiencia:</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Ingresa el base experience"
+                placeholder="Ingresa la experiencia"
                 name="base_experience"
                 onChange={handleChange}
                 value={formData.base_experience}
@@ -72,7 +85,7 @@ function ShowModal(props) {
               <Form.Control
                 type="text"
                 name="height"
-                placeholder="Ingresa el height"
+                placeholder="Ingresa la altura"
                 onChange={handleChange}
                 value={formData.height}
               />
@@ -83,12 +96,21 @@ function ShowModal(props) {
               <Form.Control
                 type="text"
                 name="weight"
-                placeholder="Ingresa el weight"
+                placeholder="Ingresa el peso"
                 onChange={handleChange}
                 value={formData.weight}
               />
             </Form.Group>
-
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Sprite:</Form.Label>
+              <Form.Control
+                type="text"
+                name="sprite"
+                placeholder="Ingresa el sprite"
+                onChange={handleChange}
+                value={formData.sprite}
+              />
+            </Form.Group>
             <Button variant="primary" type="submit">
               Guardar
             </Button>
