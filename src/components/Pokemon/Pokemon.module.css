@@ -10,7 +10,6 @@ body{
     background-image: url("https://w0.peakpx.com/wallpaper/613/152/HD-wallpaper-pokemon-pokeball-pokemon.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    opacity: 0.9;
 }
 
 h3{
@@ -20,12 +19,14 @@ h3{
 }
 
 .card{
-    background-color: #486fc4;
+    background-color: beige;
     border-radius: 8px;
 }
 
 p{
-    color: beige;
-    margin-left: 55px;
+    color: black;
 }
 
+.pokeimg{
+    min-height: 120px;
+}

@@ -2,9 +2,16 @@
   display: grid;
   grid-gap: 15px;
   grid-template-columns: 256px 256px 256px 256px;
+  opacity: 0.95;
+  text-align: center;
 }
 .label{
   font-size: 25px;
   color: white;
   font-weight: bolder;
 }
+
+.navbar {
+  background: #264994;
+}
+
