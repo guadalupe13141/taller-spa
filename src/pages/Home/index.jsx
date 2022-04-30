@@ -1,28 +1,23 @@
 import Pokemon from "../../components/Pokemon";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import "../../App.css";
-import { useState, useEffect, useCallback } from "react";
-import axios from "../../utils/axios";
+import {useEffect} from "react";
+import {useSelector, useDispatch} from "react-redux";
+import {fetchPokemons} from "../../store/actions/pokemonActions"
 
 function Home() {
-  const [allPokemon, setAllPokemon] = useState([]);
-  const [backUpPokemon, setBackUpPokemon] = useState([]);
-
-  const fetchPokemons = useCallback(async () => {
-    const response = await axios.get("/pokemons");
-    setAllPokemon(response.data);
-    setBackUpPokemon(response.data);
-  }, []);
+  const dispatch = useDispatch();
+  const {list:pokemons} = useSelector((state) => state.pokemons);
 
   useEffect(() => {
     try {
-      fetchPokemons();
+      dispatch(fetchPokemons());
     } catch (err) {
       console.log(err);
     }
-  }, [fetchPokemons]);
+  }, [dispatch]);
 
-  const buscarPokemon = function (event) {
+  /*const buscarPokemon = function (event) {
     let pokeArray = [...backUpPokemon];
     pokeArray = pokeArray.filter((pokemon) => {
       return (
@@ -30,6 +25,16 @@ function Home() {
       );
     });
     setAllPokemon(pokeArray);
+  };*/
+
+  const debounce = (callback, wait)=>{
+    let timer;
+    return(...args)=>{
+      clearTimeout(timer);
+      timer= setTimeout(()=>{
+        callback(...args);
+      }, wait);
+    };
   };
 
   return(
@@ -43,7 +48,15 @@ function Home() {
           <Form.Control
             type="text"
             placeholder="Ingresa el nombre del Pokemon"
-            onChange={buscarPokemon}
+            //onChange={buscarPokemon}
+            onKeyUp={
+              debounce(function(e){
+                const filter = {[e.target.name]: e.target.value.trim()};
+                dispatch(fetchPokemons(filter));
+
+              },500)
+
+            }
           />
         </Col>
         </Row>
@@ -53,11 +66,10 @@ function Home() {
           <div className="target m-5">
             {allPokemon.map((pokemon) => {
                return (
-                <Col>
+                <Col
+                key={pokemon.id}>
                   <Pokemon
-                    key={pokemon.id}
                     pokemon={pokemon}
-                    fetchPokemons={fetchPokemons}
                   />
                 </Col>
                );

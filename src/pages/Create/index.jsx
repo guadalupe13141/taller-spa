@@ -2,9 +2,11 @@ import Form from "../../components/Form";
 import { Card, Container, Row, Col } from "react-bootstrap";
 import {useNavigate } from "react-router-dom";
 import {useState } from "react";
-import axios from "../../utils/axios";
+import {useDispatch} from "react-redux";
+import { addPokemon } from "../../store/actions/pokemonActions";
 
 function CreatPokemon(){
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: "",
@@ -17,7 +19,7 @@ function CreatPokemon(){
     const handleSubmit = async (e) => {
         try {
         e.preventDefault();
-        await axios.post("/pokemons", formData);
+        dispatch(addPokemon(formData));
         navigate("/");
         } catch (err) {
         console.log(err);

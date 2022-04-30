@@ -1,12 +1,14 @@
 import styles from "./Pokemon.module.css";
 import { Card, Button} from "react-bootstrap";
-import axios from "../../utils/axios";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {removePokemon } from "../../store/actions/pokemonActions";
 
-function Pokemon({ pokemon, fetchPokemons }) {
+
+function Pokemon({ pokemon}) {
+  const dispatch = useDispatch();
   const deletePokemon = async () => {
-    await axios.delete(`/pokemons/${pokemon.id}`);
-    fetchPokemons();
+    dispatch(removePokemon(pokemon.id));
     alert("Se ha eliminado el pokemon exitosamente!");
   };
 

@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import CreatPokemon from './pages/Create'
 import UpdatePokemon from './pages/Update'
 import Layout from "./pages/index";
+import Bank from "./pages/Bank";
 import {Navbar, Container, Nav} from "react-bootstrap";
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
     <BrowserRouter>
     <Navbar variant="dark" expand="lg">
     <Container>
-        <Navbar.Brand href="/">Pokemon</Navbar.Brand>
+        <NavLink to="/" className={"navbar navbar-brand"}>Pokemon</NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
@@ -27,6 +28,7 @@ function App() {
             <Route index element={<Home/>}/>
             <Route path="/crear" element={<CreatPokemon/>}/>
             <Route path="/actualizar/:id" element={<UpdatePokemon/>}/>
+            <Route path="/bank" element={<Bank/>}/>          
           <Route/>
       </Routes>
     </BrowserRouter>
