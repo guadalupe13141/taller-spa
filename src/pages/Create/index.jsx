@@ -3,9 +3,9 @@ import { Card, Container, Row, Col } from "react-bootstrap";
 import {useNavigate } from "react-router-dom";
 import {useState } from "react";
 import {useDispatch} from "react-redux";
-import { addPokemon } from "../../store/actions/pokemonActions";
+import { createPokemon } from "../../store/actions/pokemonActions";
 
-function CreatPokemon(){
+function CreatePokemon(){
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ function CreatPokemon(){
     const handleSubmit = async (e) => {
         try {
         e.preventDefault();
-        dispatch(addPokemon(formData));
+        dispatch(createPokemon(formData));
         navigate("/");
         } catch (err) {
         console.log(err);
@@ -28,7 +28,7 @@ function CreatPokemon(){
 
     return(
     <Container>
-      <h1 className="white-text m-4 text-center">Crear pokemon</h1>
+      <h2 className="white-text m-4 text-center">Crear pokemon</h2>
       <Row className={"justify-content-center"}>
         <Col xs={6}>
           <Card className="p-4">
@@ -44,4 +44,4 @@ function CreatPokemon(){
   );
 }
 
-export default CreatPokemon;
+export default CreatePokemon;

@@ -19,11 +19,11 @@ function Pokemon({ pokemon}) {
         <p> <strong>Experiencia:</strong> {`${pokemon.base_experience}`}</p>  
         <p> <strong>Altura:</strong> {`${pokemon.height}`}</p>
         <p> <strong>Peso:</strong> {`${pokemon.weight}`}</p>
-        <div className={`mb-5 ${styles.pokemImg}`}>
-          <img src={pokemon.sprite} alt="pokemon-img" />
-        </div>
         <div>
-          <NavLink to={`/actualizar/${pokemon.id}`} className="btn btn-primary">Actualizar</NavLink>
+          <img src={pokemon.sprite} />
+        </div>
+        <div className={`mb-5 ${styles.btn}`}>
+          <NavLink to={`/actualizar/${pokemon.id}`} className="btn btn-primary" >Actualizar</NavLink>
           <Button variant="danger" onClick={deletePokemon}>
             Eliminar
           </Button>

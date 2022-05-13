@@ -1,32 +1,18 @@
-import { useState } from "react";
-import { Button, Modal, Form } from "react-bootstrap";
-import axios from "../../utils/axios";
+import { Button, Form } from "react-bootstrap";
 
-function ShowModal({pokemon, handleSubmit, setFormData, formData }) {
-
-  let initialData = {};
-  if (pokemon) {
-    initialData = { ...pokemon };
-    delete initialData.id;
-  } else {
-    initialData = {
-      name: "",
-      base_experience: "",
-      height: "",
-      weight: "",
-      sprite: "",
-    };
-  }
-
+function FormPokemon({handleSubmit, setFormData, formData }) {
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   return (
-    <>
+    <div>
+        <div className="form">
+
+        </div>
      <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Nombre:</Form.Label>
+            <Form.Label className="lab">Nombre:</Form.Label>
             <Form.Control
             type="text"
             name="name"
@@ -37,7 +23,7 @@ function ShowModal({pokemon, handleSubmit, setFormData, formData }) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Experiencia:</Form.Label>
+            <Form.Label className="lab">Experiencia:</Form.Label>
             <Form.Control
             type="text"
             placeholder="Ingresa la experiencia"
@@ -48,7 +34,7 @@ function ShowModal({pokemon, handleSubmit, setFormData, formData }) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Altura:</Form.Label>
+            <Form.Label className="lab"column>Altura:</Form.Label>
             <Form.Control
             type="text"
             name="height"
@@ -59,7 +45,7 @@ function ShowModal({pokemon, handleSubmit, setFormData, formData }) {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Peso:</Form.Label>
+            <Form.Label className="lab">Peso:</Form.Label>
             <Form.Control
             type="text"
             name="weight"
@@ -69,7 +55,7 @@ function ShowModal({pokemon, handleSubmit, setFormData, formData }) {
             />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Sprite:</Form.Label>
+            <Form.Label className="lab">Sprite:</Form.Label>
             <Form.Control
             type="text"
             name="sprite"
@@ -78,12 +64,16 @@ function ShowModal({pokemon, handleSubmit, setFormData, formData }) {
             value={formData.sprite}
             />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button className="guardar" variant="primary" type="submit">
             Guardar
         </Button>
-        </Form>
-        </>
+        
+      </Form>
+    
+    </div>
+    
+        
   );
 }
 
-export default ShowModal;
+export default FormPokemon;

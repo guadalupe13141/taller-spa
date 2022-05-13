@@ -12,7 +12,7 @@ export const getAll = async function(filters=""){
 
         }
     }
-    return await axios.get("/pokemons");
+    return await axios.get(`/pokemons${filterStr}`);
 }
 
 export const remove = async function(id){

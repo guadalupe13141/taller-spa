@@ -1,19 +1,8 @@
-.purple{
-    color:purple;
-}
 
-.blue{
-    color:blue;
-}
-
-body{
-    background-image: url("https://w0.peakpx.com/wallpaper/613/152/HD-wallpaper-pokemon-pokeball-pokemon.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 
 h3{
-    text-align: center;
+    margin-left: 15px;
+    text-align: left;
     color: #FFCB05;
     text-transform: uppercase;
 }
@@ -21,12 +10,27 @@ h3{
 .card{
     background-color: beige;
     border-radius: 8px;
+    height: 240px;
+    box-shadow: 6px 6px 5px -5px black;
+    
 }
 
 p{
+    margin-left: 15px;
+    text-align: left;
     color: black;
 }
 
-.pokeimg{
+img{
+    margin-top: -200px;
+    margin-left: 160px;
     min-height: 120px;
+    max-height: 150px;
 }
+
+.btn{
+    position: relative;
+    margin-top: -17px;
+    margin-left: 122px;
+}
+

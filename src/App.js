@@ -13,11 +13,11 @@ function App() {
     <BrowserRouter>
     <Navbar variant="dark" expand="lg">
     <Container>
-        <NavLink to="/" className={"navbar navbar-brand"}>Pokemon</NavLink>
+        <NavLink to="/" className='navbar-brand' style={{marginLeft:-100,fontSize:23,fontWeight:'bolder'}}>PokeAPI</NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-            <NavLink to="/crear" className='nav-link'>Crear Pokemon</NavLink>
+            <NavLink to="/crear" className='nav-link' style={{marginLeft:10, fontSize:18}}>Crear Pokemon</NavLink>
         </Nav>
         </Navbar.Collapse>
     </Container>
@@ -28,7 +28,7 @@ function App() {
             <Route index element={<Home/>}/>
             <Route path="/crear" element={<CreatPokemon/>}/>
             <Route path="/actualizar/:id" element={<UpdatePokemon/>}/>
-            <Route path="/bank" element={<Bank/>}/>          
+            <Route path="/counter" element={<Bank/>}/>   
           <Route/>
       </Routes>
     </BrowserRouter>

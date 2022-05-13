@@ -1,5 +1,5 @@
 import { ActionTypes } from "../constants";
-import { getAll, getOne, update, add } from "../services/pokemonSevices";
+import { getAll, remove, getOne, update, add } from "../services/pokemonSevices";
 
 export const addPokemon = (pokemon) => {
     return{
@@ -36,9 +36,9 @@ export const setRemovedPokemon = (id) => {
     };
 };
 
-export const addNewPokemon = (pokemon) => {
+export const createPokemon = (pokemon) => {
     return async(dispatch)=>{
-        const{data} = await add(filter);
+        const{data} = await add(pokemon);
         dispatch(addPokemon(data));
     };
 };
@@ -69,6 +69,6 @@ export const removePokemon = (id) => {
 export const updatePokemon = (id,pokemon) => {
     return async(dispatch) =>{
         const{data} = await update(id,pokemon);
-        dispatch(setUpdatedPokemons(data));
+        dispatch(setUpdatedPokemon(data));
     };
 };

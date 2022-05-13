@@ -17,16 +17,6 @@ function Home() {
     }
   }, [dispatch]);
 
-  /*const buscarPokemon = function (event) {
-    let pokeArray = [...backUpPokemon];
-    pokeArray = pokeArray.filter((pokemon) => {
-      return (
-        pokemon.name.toLowerCase().search(event.target.value.toLowerCase()) !== -1
-      );
-    });
-    setAllPokemon(pokeArray);
-  };*/
-
   const debounce = (callback, wait)=>{
     let timer;
     return(...args)=>{
@@ -45,18 +35,16 @@ function Home() {
           <Form.Label className="label">Buscar:</Form.Label>
         </Col>
         <Col xs={10}>
-          <Form.Control
+          <Form.Control className="buscador"
             type="text"
             placeholder="Ingresa el nombre del Pokemon"
-            //onChange={buscarPokemon}
+            name="name"
             onKeyUp={
               debounce(function(e){
                 const filter = {[e.target.name]: e.target.value.trim()};
                 dispatch(fetchPokemons(filter));
 
-              },500)
-
-            }
+              },500)}
           />
         </Col>
         </Row>
@@ -64,13 +52,11 @@ function Home() {
       <Row>
         <Col>
           <div className="target m-5">
-            {allPokemon.map((pokemon) => {
+            {pokemons.map((pokemon) => {
                return (
                 <Col
                 key={pokemon.id}>
-                  <Pokemon
-                    pokemon={pokemon}
-                  />
+                  <Pokemon pokemon={pokemon} />
                 </Col>
                );
             })}

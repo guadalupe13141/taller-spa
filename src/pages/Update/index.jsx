@@ -25,7 +25,7 @@ function UpdatePokemon() {
   useEffect(()=>{
     if(pokemon){
       delete pokemon.id;
-      serFormData(pokemon);
+      setFormData(pokemon);
     }
   }, [pokemon]);
 
@@ -41,7 +41,7 @@ function UpdatePokemon() {
 
   return (
     <Container>
-      <h1 className="white-text m-4 text-center">Editar pokemon</h1>
+      <h2 className="white-text m-4 text-center">Editar pokemon</h2>
       <Row className={"justify-content-center"}>
         <Col xs={6}>
           <Card className="p-4">
